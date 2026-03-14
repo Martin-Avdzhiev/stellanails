@@ -1,8 +1,16 @@
 ---
-  deployment:
-    tasks:
-      - export DEPLOYPATH=/home/stella405/public_html/
-      - /bin/rm -rf $DEPLOYPATH/*
-      - /bin/cp -R . $DEPLOYPATH
-      - /bin/rm -f $DEPLOYPATH/.cpanel.yml
-      - /bin/rm -f $DEPLOYPATH/.gitignore
+deployment:
+  tasks:
+    # 1️⃣ Set the deploy path
+    - export DEPLOYPATH=/home/stella405/public_html/
+    
+    # 2️⃣ Delete old files in public_html
+    - /bin/rm -rf $DEPLOYPATH/*
+    
+    # 3️⃣ Copy all files from repo to public_html, excluding hidden files like .git and .cpanel.yml
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R .* $DEPLOYPATH || true   # copies hidden files except . and .., || true ignores errors
+    
+    # 4️⃣ Remove YAML and gitignore from public_html if they were copied
+    - /bin/rm -f $DEPLOYPATH/.cpanel.yml
+    - /bin/rm -f $DEPLOYPATH/.gitignore
