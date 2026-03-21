@@ -574,3 +574,11 @@ footer {
 	transform: scale(1.2);
 	z-index: 2;
 }
+
+.key-text {
+	color: transparent;
+}
+
+.key-text-contacts {
+	width: 40%;
+}
